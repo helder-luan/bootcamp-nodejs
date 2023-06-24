@@ -1,19 +1,16 @@
-import { Router} from "express";
+import { Router } from 'express';
+import proprietarioController from '../controllers/proprietarioController.js';
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.send("Hello World");
-});
+router.get("/", proprietarioController.index);
 
-router.get("/:id", (req, res) => {
-  res.send("Hello World");
-});
+router.get("/:id", proprietarioController.show);
 
-router.post("/", (req, res) => {});
+router.post("/", proprietarioController.store);
 
-router.put("/", (req, res) => {});
+router.put("/", proprietarioController.update);
 
-router.delete("/:id", (req, res) => {});
+router.delete("/:id", proprietarioController.destroy);
 
 export default router;
