@@ -1,0 +1,67 @@
+import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
+dotenv.config();
+
+const connection = new Sequelize({
+  dialect: 'mysql',
+  host: process.env.DB_HOST,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+});
+
+try {
+  await connection.authenticate();
+  // _onCreate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
+
+async function _onCreate() {
+  const sql = [
+    // on mysql
+    `CREATE TABLE proprietarios (
+      proprietario_id INT NOT NULL AUTO_INCREMENT,
+      nome VARCHAR(255) NOT NULL,
+      telefone VARCHAR(255) NOT NULL,
+      PRIMARY KEY (proprietario_id)
+    )`,
+    
+    `CREATE TABLE animais (
+      animal_id INT NOT NULL AUTO_INCREMENT,
+      nome VARCHAR(255) NOT NULL,
+      tipo VARCHAR(255) NOT NULL,
+      proprietario_id INT NOT NULL,
+      PRIMARY KEY (animal_id),
+      FOREIGN KEY (proprietario_id) REFERENCES proprietarios(proprietario_id)
+    )`,    
+
+    `INSERT INTO proprietarios (nome, telefone) VALUES ('Alda Valentim', '(39) 98566-1222')`,
+    `INSERT INTO proprietarios (nome, telefone) VALUES ('Nicolas Avelar', '(28) 97432-0379')`,
+    `INSERT INTO proprietarios (nome, telefone) VALUES ('Emilly Baptista', '(31) 99545-2457')`,
+    `INSERT INTO proprietarios (nome, telefone) VALUES ('Beatriz Bonilha', '(35) 98054-4724')`,
+    `INSERT INTO proprietarios (nome, telefone) VALUES ('Nataniel Faleiro', '(33) 99594-3315')`,
+    `INSERT INTO proprietarios (nome, telefone) VALUES ('Richard Santos', '(27) 99597-9170')`,
+    
+    `INSERT INTO animais (nome, tipo, proprietario_id) VALUES ('Billy', 'Cachorro', 1)`,
+    `INSERT INTO animais (nome, tipo, proprietario_id) VALUES ('Nala', 'Cachorro', 2)`,
+    `INSERT INTO animais (nome, tipo, proprietario_id) VALUES ('Mimi', 'Gato', 2)`,
+    `INSERT INTO animais (nome, tipo, proprietario_id) VALUES ('Dory', 'Cachorro', 3)`,
+    `INSERT INTO animais (nome, tipo, proprietario_id) VALUES ('Lulu', 'Cachorro', 4)`,
+    `INSERT INTO animais (nome, tipo, proprietario_id) VALUES ('Bob', 'Cachorro', 5)`,
+    `INSERT INTO animais (nome, tipo, proprietario_id) VALUES ('Milu', 'Cachorro', 5)`,
+    `INSERT INTO animais (nome, tipo, proprietario_id) VALUES ('Emmy', 'Gato', 5)`,
+    `INSERT INTO animais (nome, tipo, proprietario_id) VALUES ('Amora', 'Cachorro', 6)`
+  ];
+
+  sql.forEach(async (query) => {
+    try {
+      await connection.query(query);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+}
+
+export default connectionSequelize;
