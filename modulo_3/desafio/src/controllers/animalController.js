@@ -1,9 +1,9 @@
-import proprietarioService from '../services/proprietarioService.js';
+import animalService from '../services/animalService.js';
 
 async function index(req, res) {
   try {
-    const proprietarios = await proprietarioService.findAll();
-    return res.json(proprietarios);
+    const animals = await animalService.findAll();
+    return res.json(animals);
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
@@ -12,8 +12,8 @@ async function index(req, res) {
 async function show(req, res) {
   try {
     const { id } = req.params;
-    const proprietario = await proprietarioService.findOne(id);
-    return res.json(proprietario);
+    const animal = await animalService.findOne(id);
+    return res.json(animal);
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
@@ -21,8 +21,8 @@ async function show(req, res) {
 
 async function store(req, res) {
   try {
-    const proprietario = await proprietarioService.create(req.body);
-    return res.json(proprietario);
+    const animal = await animalService.create(req.body);
+    return res.json(animal);
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
@@ -31,8 +31,8 @@ async function store(req, res) {
 async function update(req, res) {
   try {
     const { id } = req.body;
-    const proprietario = await proprietarioService.update(id, req.body);
-    return res.json(proprietario);
+    const animal = await animalService.update(id, req.body);
+    return res.json(animal);
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
@@ -41,8 +41,8 @@ async function update(req, res) {
 async function destroy(req, res) {
   try {
     const { id } = req.params;
-    const proprietario = await proprietarioService.remove(id);
-    return res.json(proprietario);
+    const animal = await animalService.remove(id);
+    return res.json(animal);
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
