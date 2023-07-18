@@ -1,15 +1,15 @@
-import ClienteService from "../services/clienteService.js";
+import AutorService from "../services/autorService.js";
 
-class ClienteController {
+class AutorController {
   constructor(classService) {
     this.service = classService;
   }
 
   async listar(req, res, next) {
     try {
-      const clientes = await this.service.listar()
+      const autores = await this.service.listar()
 
-      res.status(200).json(clientes)
+      res.status(200).json(autores)
     } catch (error) {
       res.status(400).json({ error: error.message })
     }
@@ -17,11 +17,11 @@ class ClienteController {
 
   async obterPorId(req, res, next) {
     try {
-      const idCliente = req.params.id;
+      const idAutor = req.params.id;
 
-      const cliente = await this.service.obterPorId(idCliente);
+      const autor = await this.service.obterPorId(idAutor);
 
-      res.status(200).json(cliente)
+      res.status(200).json(idAutor)
     } catch (error) {
       res.status(400).json({ error: error.message })
     }
@@ -29,11 +29,11 @@ class ClienteController {
 
   async salvar(req, res, next) {
     try {  
-      const cliente = req.body;
+      const autor = req.body;
 
-      const novoCliente = await this.service.salvar(cliente);
+      const novoAutor = await this.service.salvar(autor);
 
-      res.status(201).json(novoCliente);
+      res.status(201).json(novoAutor);
     } catch (error) {
       res.status(400).json({ error: error.message })
     }
@@ -41,11 +41,11 @@ class ClienteController {
 
   async alterar(req, res, next) {
     try {
-      const cliente = req.body;
+      const autor = req.body;
 
-      const clienteAtualizado = await this.service.alterar(cliente);
+      const autorAtualizado = await this.service.alterar(autor);
 
-      res.status(201).json(clienteAtualizado);
+      res.status(201).json(autorAtualizado);
     } catch (error) {
       res.status(400).json({ error: error.message })
     }
@@ -53,9 +53,9 @@ class ClienteController {
 
   async excluir(req, res, next) {
     try {
-      const idCliente = req.params.id;
+      const idAutor = req.params.id;
 
-      await this.service.excluir(idCliente);
+      await this.service.excluir(idAutor);
 
       res.status(204).end();
     } catch (error) {

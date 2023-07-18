@@ -1,9 +1,7 @@
 import { DataTypes } from "sequelize";
-import { MySqlDataBase } from "../connections/data/mysqlDatabase";
+import { mySqlDb } from "../connections/databases/mysqlDatabase.js";
 
-const db = MySqlDataBase.getInstance();
-
-export const AutorModel = db.define('autor', {
+export const AutorModel = mySqlDb.define('autor', {
   autor_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -22,4 +20,6 @@ export const AutorModel = db.define('autor', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+}, {
+  timestamps: false
 });

@@ -1,6 +1,6 @@
-import { ClienteModel } from "../models/clienteModel.js";
+import { AutorModel } from "../models/autorModel.js";
 
-class ClienteRepository {
+class AutorRepository {
   constructor(classModel) {
     this.model = classModel;
   }
@@ -20,7 +20,7 @@ class ClienteRepository {
   async alterar(model) {
     return this.model.update(model, {
       where: {
-        cliente_id: model.id
+        autor_id: model.id
       }
     });
   }
@@ -28,10 +28,10 @@ class ClienteRepository {
   async excluir(id) {
     return this.model.destroy({
       where: {
-        cliente_id: id
+        autor_id: id
       }
     });
   }
 }
 
-export default new ClienteRepository(ClienteModel);
+export default new AutorRepository(AutorModel);

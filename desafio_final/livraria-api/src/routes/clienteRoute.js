@@ -1,17 +1,16 @@
 import { BaseRoute } from "./baseRoute.js";
+import ClienteController from "../controllers/clienteController.js";
 
 export class ClienteRoute extends BaseRoute {
   constructor() {
     super(ClienteController);
-    this.init();
+    return this.init();
   }
 
   init() {
-    super.init();
-
     // rotas adicionais
     // this.router.get('/nome/:nome', this.classController.obterPorNome);
-
-    return this.router;
+    
+    return super.init();
   }
 }
