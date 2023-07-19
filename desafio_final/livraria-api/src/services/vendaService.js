@@ -1,42 +1,38 @@
 import VendaRepository from "../repositories/vendaRepository.js";
 
 class VendaService {
-  constructor(classRepository) {
-    this.repository = classRepository;
-  }
-
   async listar() {
-    return this.repository.listar();
+    return VendaRepository.listar();
   }
 
   async obterPorId(id) {
-    return this.repository.obterPorId(id);
+    return VendaRepository.obterPorId(id);
   }
 
   async salvar(model) {
-    return this.repository.salvar(model);
+    return VendaRepository.salvar(model);
   }
 
   async alterar(model) {
-    return this.repository.alterar(model);
+    return VendaRepository.alterar(model);
   }
 
   async excluir(id) {
-    return this.repository.excluir(id);
+    return VendaRepository.excluir(id);
   }
 
   async obterPorClienteId(id) {
-    return this.repository.obterPorClienteId(id);
+    return VendaRepository.obterPorClienteId(id);
   }
 
   async obterPorLivroId(id) {
-    return this.repository.obterPorLivroId(id);
+    return VendaRepository.obterPorLivroId(id);
   }
 
   async obterPorAutorId(id) {
-    return this.repository.obterPorAutorId(id);
+    return VendaRepository.obterPorAutorId(id);
   }
 
 }
 
-export default new VendaService(VendaRepository);
+export default new VendaService();

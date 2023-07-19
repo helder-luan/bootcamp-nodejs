@@ -1,14 +1,15 @@
 import { BaseRoute } from "./baseRoute.js";
+import AutorController from "../controllers/autorController.js";
 
-export class AutorRoute extends BaseRoute {
+class AutorRoute extends BaseRoute {
   constructor() {
     super(AutorController);
-    this.init();
+    return this.init();
   }
 
   init() {
-    super.init();
-
-    return this.router;
+    return super.init();
   }
 }
+
+export default new AutorRoute();

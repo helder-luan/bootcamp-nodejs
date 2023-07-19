@@ -25,5 +25,6 @@ export const VendaModel = mySqlDb.define('venda', {
     allowNull: false,
   },
 }, {
-  timestamps: false
+  timestamps: false,
+  tableName: 'vendas',
 });

@@ -1,6 +1,7 @@
 import { BaseRoute } from "./baseRoute.js";
+import VendaController from "../controllers/vendaController.js";
 
-export class VendaRoute extends BaseRoute {
+class VendaRoute extends BaseRoute {
   constructor() {
     super(VendaController);
     this.init();
@@ -26,3 +27,5 @@ export class VendaRoute extends BaseRoute {
     this.router.get('?autorId=:id', this.classController.obterPorAutorId);
   }
 }
+
+export default new VendaRoute();

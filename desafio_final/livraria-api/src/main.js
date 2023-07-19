@@ -4,10 +4,9 @@ import dotenv from "dotenv";
 import { MySqlDataBase } from "./connections/databases/mysqlDatabase.js";
 import { MongoDataBase } from "./connections/databases/mongoDatabase.js";
 
-import { ClienteRoute } from "./routes/clienteRoute.js";
-import { LivroRoute } from "./routes/livroRoute.js";
-import { VendaRoute } from "./routes/vendaRoute.js";
-import { AutorRoute } from "./routes/autorRoute.js";
+import ClienteRoute from "./routes/clienteRoute.js";
+import AutorRoute from "./routes/autorRoute.js";
+import LivroRoute from "./routes/livroRoute.js";
 
 dotenv.config();
 export class App {
@@ -38,7 +37,7 @@ export class App {
 
     this.initRoutes();
 
-    this.app.listen(process.env.EXPRESS_PORT, () => {
+    this.app.listen(process.env.EXPRESS_PORT, "192.168.0.104", () => {
       console.log(`API rodando na porta ${process.env.EXPRESS_PORT}`);
     });
   }
@@ -48,10 +47,10 @@ export class App {
       res.send('API rodando com ExpressJS');
     });
 
-    this.app.use('/cliente', new ClienteRoute);
-    // this.app.use('/livro', LivroRoute);
+    this.app.use('/cliente', ClienteRoute);
+    this.app.use('/livro', LivroRoute);
     // this.app.use('/venda', VendaRoute);
-    // this.app.use('/autor', AutorRoute);
+    this.app.use('/autor', AutorRoute);
   }
 }
 

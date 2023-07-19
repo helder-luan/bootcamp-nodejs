@@ -25,5 +25,6 @@ export const LivroModel = mySqlDb.define('livro', {
     allowNull: false,
   },
 }, {
-  timestamps: false
+  timestamps: false,
+  tableName: 'livros',
 });

@@ -1,13 +1,9 @@
 import AutorService from "../services/autorService.js";
 
 class AutorController {
-  constructor(classService) {
-    this.service = classService;
-  }
-
   async listar(req, res, next) {
     try {
-      const autores = await this.service.listar()
+      const autores = await AutorService.listar()
 
       res.status(200).json(autores)
     } catch (error) {
@@ -19,9 +15,9 @@ class AutorController {
     try {
       const idAutor = req.params.id;
 
-      const autor = await this.service.obterPorId(idAutor);
+      const autor = await AutorService.obterPorId(idAutor);
 
-      res.status(200).json(idAutor)
+      res.status(200).json(autor)
     } catch (error) {
       res.status(400).json({ error: error.message })
     }
@@ -31,7 +27,7 @@ class AutorController {
     try {  
       const autor = req.body;
 
-      const novoAutor = await this.service.salvar(autor);
+      const novoAutor = await AutorService.salvar(autor);
 
       res.status(201).json(novoAutor);
     } catch (error) {
@@ -43,7 +39,7 @@ class AutorController {
     try {
       const autor = req.body;
 
-      const autorAtualizado = await this.service.alterar(autor);
+      const autorAtualizado = await AutorService.alterar(autor);
 
       res.status(201).json(autorAtualizado);
     } catch (error) {
@@ -55,7 +51,7 @@ class AutorController {
     try {
       const idAutor = req.params.id;
 
-      await this.service.excluir(idAutor);
+      await AutorService.excluir(idAutor);
 
       res.status(204).end();
     } catch (error) {
@@ -64,4 +60,4 @@ class AutorController {
   }
 }
 
-export default new ClienteController(ClienteService);
+export default new AutorController();

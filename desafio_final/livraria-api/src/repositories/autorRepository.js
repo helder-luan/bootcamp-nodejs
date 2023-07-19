@@ -1,24 +1,20 @@
 import { AutorModel } from "../models/autorModel.js";
 
 class AutorRepository {
-  constructor(classModel) {
-    this.model = classModel;
-  }
-
   async listar() {
-    return this.model.findAll();
+    return AutorModel.findAll();
   }
 
   async obterPorId(id) {
-    return this.model.findByPk(id);
+    return AutorModel.findByPk(id);
   }
 
   async salvar(model) {
-    return this.model.create(model);
+    return AutorModel.create(model);
   }
 
   async alterar(model) {
-    return this.model.update(model, {
+    return AutorModel.update(model, {
       where: {
         autor_id: model.id
       }
@@ -26,7 +22,7 @@ class AutorRepository {
   }
 
   async excluir(id) {
-    return this.model.destroy({
+    return AutorModel.destroy({
       where: {
         autor_id: id
       }
@@ -34,4 +30,4 @@ class AutorRepository {
   }
 }
 
-export default new AutorRepository(AutorModel);
+export default new AutorRepository();

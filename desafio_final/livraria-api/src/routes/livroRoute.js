@@ -1,23 +1,21 @@
 import { BaseRoute } from "./baseRoute.js";
+import LivroController from "../controllers/livroController.js";
 
-export class LivroRoute extends BaseRoute {
+class LivroRoute extends BaseRoute {
   constructor() {
     super(LivroController);
-    this.init();
+    return this.init();
   }
 
   init() {
-    super.init();
-
     this.adicionarRotas();
-
-    return this.router;
+    return super.init();
   }
 
   // rotas adicionais
   adicionarRotas() {
     // detalhe por autor
-    this.router.get('?autorId=:id', this.classController.obterPorAutorId);
+    this.router.get('/?autorId=:id', this.classController.obterPorAutorId);
 
     // inclusão informações livro
     this.router.post('/info', this.classController.salvarInfo);
@@ -35,3 +33,5 @@ export class LivroRoute extends BaseRoute {
     this.router.delete('/:id/avaliacao/:id', this.classController.excluirAvaliacao);
   }
 }
+
+export default new LivroRoute();

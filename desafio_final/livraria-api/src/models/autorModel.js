@@ -21,5 +21,6 @@ export const AutorModel = mySqlDb.define('autor', {
     allowNull: false,
   },
 }, {
-  timestamps: false
+  timestamps: false,
+  tableName: 'autores',
 });

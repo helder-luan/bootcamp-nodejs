@@ -1,7 +1,7 @@
 import { BaseRoute } from "./baseRoute.js";
 import ClienteController from "../controllers/clienteController.js";
 
-export class ClienteRoute extends BaseRoute {
+class ClienteRoute extends BaseRoute {
   constructor() {
     super(ClienteController);
     return this.init();
@@ -14,3 +14,5 @@ export class ClienteRoute extends BaseRoute {
     return super.init();
   }
 }
+
+export default new ClienteRoute();

@@ -1,13 +1,9 @@
 import ClienteService from "../services/clienteService.js";
 
 class ClienteController {
-  constructor(classService) {
-    this.service = classService;
-  }
-
   async listar(req, res, next) {
     try {
-      const clientes = await this.service.listar()
+      const clientes = await ClienteService.listar()
 
       res.status(200).json(clientes)
     } catch (error) {
@@ -19,7 +15,7 @@ class ClienteController {
     try {
       const idCliente = req.params.id;
 
-      const cliente = await this.service.obterPorId(idCliente);
+      const cliente = await ClienteService.obterPorId(idCliente);
 
       res.status(200).json(cliente)
     } catch (error) {
@@ -31,7 +27,7 @@ class ClienteController {
     try {  
       const cliente = req.body;
 
-      const novoCliente = await this.service.salvar(cliente);
+      const novoCliente = await ClienteService.salvar(cliente);
 
       res.status(201).json(novoCliente);
     } catch (error) {
@@ -43,7 +39,7 @@ class ClienteController {
     try {
       const cliente = req.body;
 
-      const clienteAtualizado = await this.service.alterar(cliente);
+      const clienteAtualizado = await ClienteService.alterar(cliente);
 
       res.status(201).json(clienteAtualizado);
     } catch (error) {
@@ -55,7 +51,7 @@ class ClienteController {
     try {
       const idCliente = req.params.id;
 
-      await this.service.excluir(idCliente);
+      await ClienteService.excluir(idCliente);
 
       res.status(204).end();
     } catch (error) {
@@ -64,4 +60,4 @@ class ClienteController {
   }
 }
 
-export default new ClienteController(ClienteService);
+export default new ClienteController();

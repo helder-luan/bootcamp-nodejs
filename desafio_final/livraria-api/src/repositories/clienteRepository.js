@@ -1,24 +1,20 @@
 import { ClienteModel } from "../models/clienteModel.js";
 
 class ClienteRepository {
-  constructor(classModel) {
-    this.model = classModel;
-  }
-
   async listar() {
-    return this.model.findAll();
+    return ClienteModel.findAll();
   }
 
   async obterPorId(id) {
-    return this.model.findByPk(id);
+    return ClienteModel.findByPk(id);
   }
 
   async salvar(model) {
-    return this.model.create(model);
+    return ClienteModel.create(model);
   }
 
   async alterar(model) {
-    return this.model.update(model, {
+    return ClienteModel.update(model, {
       where: {
         cliente_id: model.id
       }
@@ -26,7 +22,7 @@ class ClienteRepository {
   }
 
   async excluir(id) {
-    return this.model.destroy({
+    return ClienteModel.destroy({
       where: {
         cliente_id: id
       }
@@ -34,4 +30,4 @@ class ClienteRepository {
   }
 }
 
-export default new ClienteRepository(ClienteModel);
+export default new ClienteRepository();

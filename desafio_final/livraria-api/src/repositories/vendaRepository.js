@@ -1,24 +1,20 @@
 import { VendaModel } from "../models/vendaModel.js";
 
 class VendaRepository {
-  constructor(classModel) {
-    this.model = classModel;
-  }
-
   async listar() {
-    return this.model.findAll();
+    return VendaModel.findAll();
   }
 
   async obterPorId(id) {
-    return this.model.findByPk(id);
+    return VendaModel.findByPk(id);
   }
 
   async salvar(model) {
-    return this.model.create(model);
+    return VendaModel.create(model);
   }
 
   async alterar(model) {
-    return this.model.update(model, {
+    return VendaModel.update(model, {
       where: {
         venda_id: model.id
       }
@@ -26,7 +22,7 @@ class VendaRepository {
   }
 
   async excluir(id) {
-    return this.model.destroy({
+    return VendaModel.destroy({
       where: {
         venda_id: id
       }
@@ -34,7 +30,7 @@ class VendaRepository {
   }
 
   async obterPorClienteId(id) {
-    return this.model.findAll({
+    return VendaModel.findAll({
       where: {
         cliente_id: id
       }
@@ -42,7 +38,7 @@ class VendaRepository {
   }
 
   async obterPorLivroId(id) {
-    return this.model.findAll({
+    return VendaModel.findAll({
       where: {
         livro_id: id
       }
@@ -50,7 +46,7 @@ class VendaRepository {
   }
 
   async obterPorAutorId(id) {
-    return this.model.findAll({
+    return VendaModel.findAll({
       where: {
         autor_id: id
       }
@@ -59,4 +55,4 @@ class VendaRepository {
 
 }
 
-export default new VendaRepository(VendaModel);
+export default new VendaRepository();

@@ -2,34 +2,30 @@ import ClienteRepository from "../repositories/clienteRepository.js";
 import VendaService from "./vendaService.js";
 
 class ClienteService {
-  constructor(classRepository) {
-    this.repository = classRepository;
-  }
-
   async listar() {
-    const clientes = await this.repository.listar();
-    
+    const clientes = await ClienteRepository.listar();
+
     clientes.forEach(cliente => {
-      delete cliente.senha;
+      delete cliente.dataValues.senha;
     });
 
     return clientes;
   }
 
   async obterPorId(id) {
-    const cliente = await this.repository.obterPorId(id);
+    const cliente = await ClienteRepository.obterPorId(id);
 
-    delete cliente.senha;
+    delete cliente.dataValues.senha;
 
     return cliente;
   }
 
   async salvar(model) {
-    return await this.repository.salvar(model);
+    return await ClienteRepository.salvar(model);
   }
 
   async alterar(model) {
-    return await this.repository.alterar(model);
+    return await ClienteRepository.alterar(model);
   }
 
   async excluir(id) {
@@ -39,8 +35,8 @@ class ClienteService {
       throw new Error("Não é possível excluir um cliente que possui vendas.");
     }
 
-    return await this.repository.excluir(id);
+    return await ClienteRepository.excluir(id);
   }
 }
 
-export default new ClienteService(ClienteRepository);
+export default new ClienteService();

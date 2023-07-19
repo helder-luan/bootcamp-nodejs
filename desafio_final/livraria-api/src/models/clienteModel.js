@@ -34,5 +34,6 @@ export const ClienteModel = mySqlDb.define('cliente', {
     defaultValue: 'C',
   }
 }, {
-  timestamps: false
+  timestamps: false,
+  tableName: 'clientes'
 });
