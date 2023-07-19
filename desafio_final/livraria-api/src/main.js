@@ -37,7 +37,7 @@ export class App {
 
     this.initRoutes();
 
-    this.app.listen(process.env.EXPRESS_PORT, "192.168.0.104", () => {
+    this.app.listen(process.env.EXPRESS_PORT, process.env.EXPRESS_IPMAQUINA, () => {
       console.log(`API rodando na porta ${process.env.EXPRESS_PORT}`);
     });
   }
