@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const livroInfoSchema = new mongoose.Schema({
+export const livroInfoSchema = new mongoose.Schema({
   livroId: {
     type: mongoose.Schema.Types.Number,
     required: true,

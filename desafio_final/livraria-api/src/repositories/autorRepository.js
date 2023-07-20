@@ -2,19 +2,19 @@ import { AutorModel } from "../models/autorModel.js";
 
 class AutorRepository {
   async listar() {
-    return AutorModel.findAll();
+    return await AutorModel.findAll();
   }
 
   async obterPorId(id) {
-    return AutorModel.findByPk(id);
+    return await AutorModel.findByPk(id);
   }
 
   async salvar(model) {
-    return AutorModel.create(model);
+    return await AutorModel.create(model);
   }
 
   async alterar(model) {
-    return AutorModel.update(model, {
+    return await AutorModel.update(model, {
       where: {
         autor_id: model.id
       }
@@ -22,7 +22,7 @@ class AutorRepository {
   }
 
   async excluir(id) {
-    return AutorModel.destroy({
+    return await AutorModel.destroy({
       where: {
         autor_id: id
       }

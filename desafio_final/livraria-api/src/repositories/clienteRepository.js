@@ -2,19 +2,19 @@ import { ClienteModel } from "../models/clienteModel.js";
 
 class ClienteRepository {
   async listar() {
-    return ClienteModel.findAll();
+    return await ClienteModel.findAll();
   }
 
   async obterPorId(id) {
-    return ClienteModel.findByPk(id);
+    return await ClienteModel.findByPk(id);
   }
 
   async salvar(model) {
-    return ClienteModel.create(model);
+    return await ClienteModel.create(model);
   }
 
   async alterar(model) {
-    return ClienteModel.update(model, {
+    return await ClienteModel.update(model, {
       where: {
         cliente_id: model.id
       }
@@ -22,7 +22,7 @@ class ClienteRepository {
   }
 
   async excluir(id) {
-    return ClienteModel.destroy({
+    return await ClienteModel.destroy({
       where: {
         cliente_id: id
       }
