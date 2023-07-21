@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import basicAuth from "express-basic-auth";
 
 import { MySqlDataBase } from "./connections/databases/mysqlDatabase.js";
 import { MongoDataBase } from "./connections/databases/mongoDatabase.js";
@@ -7,6 +8,8 @@ import { MongoDataBase } from "./connections/databases/mongoDatabase.js";
 import ClienteRoute from "./routes/clienteRoute.js";
 import AutorRoute from "./routes/autorRoute.js";
 import LivroRoute from "./routes/livroRoute.js";
+import VendaRoute from "./routes/vendaRoute.js";
+import Auth from "./middleware/auth.js";
 
 dotenv.config();
 export class App {
@@ -34,6 +37,11 @@ export class App {
         console.log('Unable to connect to the databases:', err);
       });
       
+    this.app.use(basicAuth({
+      authorizer: Auth.authenticate,
+      unauthorizedResponse: Auth.getUnauthorizedResponse,
+      authorizeAsync: true,
+    }))
 
     this.initRoutes();
 
@@ -49,7 +57,7 @@ export class App {
 
     this.app.use('/cliente', ClienteRoute);
     this.app.use('/livro', LivroRoute);
-    // this.app.use('/venda', VendaRoute);
+    this.app.use('/venda', VendaRoute);
     this.app.use('/autor', AutorRoute);
   }
 }

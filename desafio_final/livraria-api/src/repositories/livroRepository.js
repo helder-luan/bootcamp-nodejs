@@ -43,51 +43,62 @@ class LivroRepository {
       livroId: info.livroId,
       descricao: info.descricao,
       paginas: info.paginas,
-      editora: info.editora,
-      avaliacoes: info.avaliacoes
+      editora: info.editora
     });
   }
 
   async alterarInfo(info) {
-    await livroInfoSchema.update({
-      livroId: info.livroId,
+    await livroInfoSchema.updateOne({
+      livroId: info.livroId
+    }, {
       descricao: info.descricao,
       paginas: info.paginas,
-      editora: info.editora,
-      avaliacoes: info.avaliacoes
-    }, {
-      where: {
-        livroId: info.livroId
-      }
+      editora: info.editora
     });
   }
 
   async excluirInfo(id) {
-    await livroInfoSchema.destroy({
-      where: {
-        livroId: id
-      }
+    await livroInfoSchema.deleteOne({
+      livroId: id
     });
   }
 
   async salvarAvaliacao(id, avaliacao) {
-    await livroInfoSchema.update({
-      avaliacoes: avaliacao
-    }, {
+    const livroInfo = await livroInfoSchema.findOne({
       where: {
         livroId: id
       }
     });
+
+    if (livroInfo) {
+      const avaliacoes = livroInfo.avaliacoes;
+      avaliacoes.push(avaliacao);
+
+      await livroInfoSchema.updateOne({
+        livroId: id
+      }, {
+        avaliacoes: avaliacoes
+      });
+    }
   }
 
-  async excluirAvaliacao(id, avaliacao) {
-    await livroInfoSchema.update({
-      avaliacoes: avaliacao
-    }, {
+  async excluirAvaliacao(id, index) {
+    const livroInfo = await livroInfoSchema.findOne({
       where: {
         livroId: id
       }
     });
+
+    if (livroInfo) {
+      const avaliacoes = livroInfo.avaliacoes;
+      const filtered = avaliacoes.filter((avaliacao, pos) => pos !== index);
+
+      await livroInfoSchema.updateOne({
+        livroId: id
+      }, {
+        avaliacoes: filtered
+      });
+    }
   }
 }
 

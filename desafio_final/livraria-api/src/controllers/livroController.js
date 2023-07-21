@@ -1,8 +1,16 @@
+import Permission from "../middleware/permission.js";
 import LivroService from "../services/livroService.js";
 
 class LivroController {
   async listar(req, res, next) {
     try {
+      if (req.query.autorId) {
+        const autorId = req.query.autorId;
+        const livros = await LivroService.obterPorAutorId(autorId);
+
+        return res.status(200).json(livros);
+      }
+
       const livros = await LivroService.listar()
 
       res.status(200).json(livros)
@@ -25,6 +33,10 @@ class LivroController {
 
   async salvar(req, res, next) {
     try {  
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+
       const livro = req.body;
 
       const novoLivro = await LivroService.salvar(livro);
@@ -37,6 +49,10 @@ class LivroController {
 
   async alterar(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+
       const livro = req.body;
 
       const livroAtualizado = await LivroService.alterar(livro);
@@ -49,6 +65,10 @@ class LivroController {
 
   async excluir(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+
       const idLivro = req.params.id;
 
       await LivroService.excluir(idLivro);
@@ -59,17 +79,17 @@ class LivroController {
     }
   }
 
-  async obterPorAutorId(req, res, next) {
-    try {
-
-    } catch(error) {
-      res.status(400).json({ error: error.message })
-    }
-  }
-
   async salvarInfo(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
 
+      const info = req.body;
+
+      const novaInfo = await LivroService.salvarInfo(info);
+
+      res.status(201).json(novaInfo);
     } catch(error) {
       res.status(400).json({ error: error.message })
     }
@@ -77,7 +97,15 @@ class LivroController {
 
   async alterarInfo(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
 
+      const info = req.body;
+
+      const infoAtualizada = await LivroService.alterarInfo(info);
+
+      res.status(200).json(infoAtualizada)
     } catch(error) {
       res.status(400).json({ error: error.message })
     }
@@ -85,7 +113,15 @@ class LivroController {
 
   async excluirInfo(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
 
+      const idLivro = req.params.id;
+
+      await LivroService.excluirInfo(idLivro);
+
+      res.status(204).end();
     } catch(error) {
       res.status(400).json({ error: error.message })
     }
@@ -93,7 +129,12 @@ class LivroController {
 
   async salvarAvaliacao(req, res, next) {
     try {
+      const idLivro = req.params.id;
+      const avaliacao = req.body;
 
+      const novaAvaliacao = await LivroService.salvarAvaliacao(idLivro, avaliacao);
+
+      res.status(201).json(novaAvaliacao);
     } catch(error) {
       res.status(400).json({ error: error.message })
     }
@@ -101,7 +142,16 @@ class LivroController {
 
   async excluirAvaliacao(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+      
+      const idLivro = req.params.id;
+      const index = req.params.index;
 
+      await LivroService.excluirAvaliacao(idLivro, index);
+
+      res.status(204).end();
     } catch(error) {
       res.status(400).json({ error: error.message })
     }

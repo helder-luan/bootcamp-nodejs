@@ -28,6 +28,14 @@ class ClienteRepository {
       }
     });
   }
+
+  async obterPorEmail(email) {
+    return await ClienteModel.findOne({
+      where: {
+        email: email
+      }
+    });
+  }
 }
 
 export default new ClienteRepository();

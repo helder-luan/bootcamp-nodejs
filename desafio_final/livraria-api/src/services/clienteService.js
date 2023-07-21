@@ -37,6 +37,10 @@ class ClienteService {
 
     return await ClienteRepository.excluir(id);
   }
+
+  async obterPorEmail(email) {
+    return await ClienteRepository.obterPorEmail(email);
+  }
 }
 
 export default new ClienteService();

@@ -25,24 +25,24 @@ class LivroService {
     return await LivroRepository.obterPorAutorId(id);
   }
 
-  async salvarInfo() {
-    return await LivroRepository.salvarInfo();
+  async salvarInfo(info) {
+    return await LivroRepository.salvarInfo(info);
   }
 
-  async alterarInfo() {
-    return await LivroRepository.alterarInfo();
+  async alterarInfo(info) {
+    return await LivroRepository.alterarInfo(info);
   }
 
-  async excluirInfo() {
-    return await LivroRepository.excluirInfo();
+  async excluirInfo(id) {
+    return await LivroRepository.excluirInfo(id);
   }
 
-  async salvarAvaliacao() {
-    return await LivroRepository.salvarAvaliacao();
+  async salvarAvaliacao(id, avaliacao) {
+    return await LivroRepository.salvarAvaliacao(id, avaliacao);
   }
 
-  async excluirAvaliacao() {
-    return await LivroRepository.excluirAvaliacao();
+  async excluirAvaliacao(id, index) {
+    return await LivroRepository.excluirAvaliacao(id, index);
   }
 }
 

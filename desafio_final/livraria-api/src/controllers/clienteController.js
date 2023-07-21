@@ -1,8 +1,14 @@
+import Auth from "../middleware/auth.js";
+import Permission from "../middleware/permission.js";
 import ClienteService from "../services/clienteService.js";
 
 class ClienteController {
   async listar(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+
       const clientes = await ClienteService.listar()
 
       res.status(200).json(clientes)
@@ -13,6 +19,10 @@ class ClienteController {
 
   async obterPorId(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+
       const idCliente = req.params.id;
 
       const cliente = await ClienteService.obterPorId(idCliente);
@@ -24,7 +34,11 @@ class ClienteController {
   }
 
   async salvar(req, res, next) {
-    try {  
+    try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+
       const cliente = req.body;
 
       const novoCliente = await ClienteService.salvar(cliente);
@@ -39,6 +53,10 @@ class ClienteController {
     try {
       const cliente = req.body;
 
+      if (Auth.usuarioAutenticado.cliente_id !== cliente.cliente_id) {
+        return res.status(401).end();
+      }
+
       const clienteAtualizado = await ClienteService.alterar(cliente);
 
       res.status(201).json(clienteAtualizado);
@@ -49,6 +67,10 @@ class ClienteController {
 
   async excluir(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+
       const idCliente = req.params.id;
 
       await ClienteService.excluir(idCliente);

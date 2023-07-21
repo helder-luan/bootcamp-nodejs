@@ -14,9 +14,6 @@ class LivroRoute extends BaseRoute {
 
   // rotas adicionais
   adicionarRotas() {
-    // detalhe por autor
-    this.router.get('/?autorId=:id', this.classController.obterPorAutorId);
-
     // inclusão informações livro
     this.router.post('/info', this.classController.salvarInfo);
 
@@ -30,7 +27,7 @@ class LivroRoute extends BaseRoute {
     this.router.post('/:id/avaliacao', this.classController.salvarAvaliacao);
 
     // exclusão avaliação livro
-    this.router.delete('/:id/avaliacao/:id', this.classController.excluirAvaliacao);
+    this.router.delete('/:id/avaliacao/:index', this.classController.excluirAvaliacao);
   }
 }
 

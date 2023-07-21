@@ -13,14 +13,6 @@ class VendaService {
     return VendaRepository.salvar(model);
   }
 
-  async alterar(model) {
-    return VendaRepository.alterar(model);
-  }
-
-  async excluir(id) {
-    return VendaRepository.excluir(id);
-  }
-
   async obterPorClienteId(id) {
     return VendaRepository.obterPorClienteId(id);
   }

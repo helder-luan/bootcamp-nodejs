@@ -3,6 +3,10 @@ import AutorService from "../services/autorService.js";
 class AutorController {
   async listar(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+
       const autores = await AutorService.listar()
 
       res.status(200).json(autores)
@@ -13,6 +17,10 @@ class AutorController {
 
   async obterPorId(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+
       const idAutor = req.params.id;
 
       const autor = await AutorService.obterPorId(idAutor);
@@ -24,7 +32,11 @@ class AutorController {
   }
 
   async salvar(req, res, next) {
-    try {  
+    try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+
       const autor = req.body;
 
       const novoAutor = await AutorService.salvar(autor);
@@ -37,6 +49,10 @@ class AutorController {
 
   async alterar(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+
       const autor = req.body;
 
       const autorAtualizado = await AutorService.alterar(autor);
@@ -49,6 +65,10 @@ class AutorController {
 
   async excluir(req, res, next) {
     try {
+      if (!Permission.isAdmin()) {
+        return res.status(403).end();
+      }
+      
       const idAutor = req.params.id;
 
       await AutorService.excluir(idAutor);

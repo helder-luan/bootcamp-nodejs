@@ -13,22 +13,6 @@ class VendaRepository {
     return await VendaModel.create(model);
   }
 
-  async alterar(model) {
-    return await VendaModel.update(model, {
-      where: {
-        venda_id: model.id
-      }
-    });
-  }
-
-  async excluir(id) {
-    return await VendaModel.destroy({
-      where: {
-        venda_id: id
-      }
-    });
-  }
-
   async obterPorClienteId(id) {
     return await VendaModel.findAll({
       where: {
@@ -47,9 +31,18 @@ class VendaRepository {
 
   async obterPorAutorId(id) {
     return await VendaModel.findAll({
-      where: {
-        autor_id: id
-      }
+      raw: true,
+      attributes: ['venda.venda_id', 'venda.data', 'venda.valor', 'venda.cliente_id', 'venda.livro_id'],
+      include: [
+        {
+          model: VendaModel.sequelize.models.livro,
+          required: true,
+          attributes: [],
+          where: {
+            autor_id: id
+          }
+        }
+      ]
     });
   }
 
